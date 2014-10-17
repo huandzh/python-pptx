@@ -80,6 +80,13 @@ class _BaseSeries(object):
         """
         return self._element.val.val_ptCount
 
+    @property
+    def format_code(self):
+        """
+        Return formatCode
+        """
+        return self._element.val.ref.cache.text_fomatCode
+
 
 class BarSeries(_BaseSeries):
     """

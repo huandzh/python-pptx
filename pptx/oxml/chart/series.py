@@ -98,7 +98,8 @@ class _Base_Seq(BaseOxmlElement):
         """
         ref element, must be implemented in subclass
         """
-        raise NotImplemented('property ref must be implemented in subclass')
+        raise NotImplementedError(
+            'property ref must be implemented in subclass')
 
     @property
     def text_ref(self):
@@ -119,7 +120,7 @@ class _Base_Seq(BaseOxmlElement):
         """
         tuples of pts
         """
-        return (self.ref.cache.tuple_pts,)
+        return self.ref.cache.tuple_pts
 
 
 class CT_Val(_Base_Seq):
@@ -178,9 +179,11 @@ class CT_Cat(_Base_Seq):
 
 class _Base_Ref(BaseOxmlElement):
     """
-    base class for ``<c:multiLvlStrRef>``, ``<c:strRef>``, and ``<c:numCache>`` element
+    base class for ``<c:multiLvlStrRef>``, ``<c:strRef>``, and ``<c:numCache>``
+    element
     """
-    cf = ZeroOrOne('c:f', successors=('c:multiLvlStrCache', 'c:strCache', 'c:numCache'))
+    cf = ZeroOrOne('c:f', successors=('c:multiLvlStrCache', 'c:strCache',
+                                      'c:numCache'))
 
     @property
     def text_cf(self):

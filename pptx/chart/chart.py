@@ -14,6 +14,7 @@ from ..enum.chart import XL_LEGEND_POSITION
 from .plot import PlotFactory, PlotTypeInspector
 from .series import SeriesCollection
 from ..util import lazyproperty
+from .data import ChartDataMoreDetails
 
 
 class Chart(object):
@@ -146,6 +147,23 @@ class Chart(object):
         for this chart.
         """
         return self._chart_part.chart_workbook
+
+    def get_data_more_details(self):
+        """
+        return |ChartDataMoreDetails| object contains categories and series 
+        in the xml of this chart
+        """
+        chart_data = ChartDataMoreDetails()
+        chart_data.categories = self.series[0].categories_tuples
+        chart_data.categories_len = self.series[0].categories_len
+        for item_series in self.series:
+            chart_data.add_series(
+                item_series.name,
+                item_series.values_tuple,
+                values_len=item_series.values_len,
+                format_code=item_series.format_code,
+                )
+        return chart_data
 
 
 class Legend(object):
