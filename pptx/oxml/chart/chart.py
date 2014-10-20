@@ -105,18 +105,29 @@ class CT_ChartSpace(BaseOxmlElement):
     def sers(self):
         """
         An immutable sequence of the `c:ser` elements under this chartSpace
-        element, sorted in order of their `c:ser/c:idx/@val` value and with
-        any gaps in numbering collapsed.
+        element in order of `c:ser/c:idx/@val` (same as Official VBA API :
+        Chart.SeriesCollection(Index))
         """
-        def ser_idx(ser):
-            return ser.idx.val
+        return sorted(self.xpath('.//c:ser'), key=lambda ser: ser.idx.val)
 
-        sers = sorted(self.xpath('.//c:ser'), key=ser_idx)
-        for idx, ser in enumerate(sers):
+    def reindex_sers(self):
+        """
+        Reindex `c:ser` elements in order of their `c:ser/c:idx/@val` value
+        and with any gaps in numbering collapsed. (method for backwards
+        compatible)  Beware : Altering `c:ser/c:idx/@val` value frequently
+        change auto style of the series
+        """
+        for idx, ser in enumerate(self.sers):
             if ser.idx.val != idx:
                 ser.idx.val = idx
-                ser.order.val = idx
-        return sers
+            ser.order.val = idx
+
+    def reset_order_sers(self):
+        """
+        Duplicated `c:ser/c:order/@val` is not allowed in MS PowerPoint, reset
+        order starting from zero"""
+        for order, ser in enumerate(self.sers):
+            ser.order.val = order
 
     @property
     def valAx(self):
