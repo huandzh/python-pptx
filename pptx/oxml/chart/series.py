@@ -269,3 +269,12 @@ class CT_NumCache(_Base_Cache, _PtMixin):
         return text of formatCode
         """
         return self.formatCode.text
+
+    @property
+    def tuple_pts(self):
+        """
+        return pt tuples as : (idx, float(v.text))
+        """
+        return tuple(
+            ((pt.idx, float(pt.v.text)) for pt in self.pt_lst)
+            )
