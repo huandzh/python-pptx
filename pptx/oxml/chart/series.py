@@ -273,8 +273,14 @@ class CT_NumCache(_Base_Cache, _PtMixin):
     @property
     def tuple_pts(self):
         """
-        return pt tuples as : (idx, float(v.text))
+        try return pt tuple as : (idx, float(v.text))
+        and return (idx, v.text) if failed
         """
-        return tuple(
-            ((pt.idx, float(pt.v.text)) for pt in self.pt_lst)
-            )
+        pt_tuple_lst = list()
+        for pt in self.pt_lst:
+            try:
+                value = float(pt.v.text)
+            except ValueError:
+                value = pt.v.text
+            pt_tuple_lst.append((pt.idx, value))
+        return tuple(pt_tuple_lst)
