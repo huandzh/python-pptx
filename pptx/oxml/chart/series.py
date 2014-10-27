@@ -143,6 +143,7 @@ class CT_Cat(_Base_Seq):
     """
     _multilvlstrref = ZeroOrOne('c:multiLvlStrRef')
     _strref = ZeroOrOne('c:strRef')
+    _numref = ZeroOrOne('c:numRef')
 
     @property
     def is_multilvl(self):
@@ -161,8 +162,11 @@ class CT_Cat(_Base_Seq):
         """
         if self.is_multilvl:
             return self._multilvlstrref
+        elif not self._numref is None:
+            return self._numref
         else:
             return self._strref
+
 
     @property
     def tuples_pts(self):

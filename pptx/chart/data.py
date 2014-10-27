@@ -394,8 +394,12 @@ class _SeriesDataMoreDetails(_SeriesData):
                                                      values, categories)
         self._values_len = values_len or max(i[0] for i in values) + 1
         self._auto_values_len = True if values_len else False
-        self._categories_len = categories_len or (max(max(j[0] for j in i)
-                                            for i in self._categories) + 1)
+        if categories_len is None and (not self._categories is None) and (
+                len(self._categories) != 0):
+            self._categories_len = max(max(j[0] for j in i)
+                                for i in self._categories) + 1
+        else:
+            self._categories_len = categories_len
         if self._values_len != self._categories_len:
             warnings.warn('''Categories and Values have different lengths.
  Will break data range adjustment by dragging in MS PowerPoint.''')
@@ -455,12 +459,16 @@ class _SeriesDataMoreDetails(_SeriesData):
         """
         The ``<c:cat>`` element XML for this series, as an oxml element.
         """
-        xml = self._cat_tmpl.format(
-            prefix=self.prefix,
-            wksht_ref=self._categories_ref, cat_count=self._categories_len,
-            cat_pt_xml=self._cat_pt_xml, nsdecls=' %s' % nsdecls('c')
-        )
-        return parse_xml(xml)
+        if self._categories_len > 0:
+            xml = self._cat_tmpl.format(
+                prefix=self.prefix,
+                wksht_ref=self._categories_ref, cat_count=self._categories_len,
+                cat_pt_xml=self._cat_pt_xml, nsdecls=' %s' % nsdecls('c')
+            )
+            return parse_xml(xml)
+        else:
+            return None
+
 
     @property
     def cat_xml(self):
@@ -468,11 +476,14 @@ class _SeriesDataMoreDetails(_SeriesData):
         The unicode XML snippet for the ``<c:cat>`` element for this series,
         containing the category labels and spreadsheet reference.
         """
-        return self._cat_tmpl.format(
-            prefix=self.prefix,
-            wksht_ref=self._categories_ref, cat_count=self._categories_len,
-            cat_pt_xml=self._cat_pt_xml, nsdecls=''
-        )
+        if self._categories_len > 0:
+            return self._cat_tmpl.format(
+                prefix=self.prefix,
+                wksht_ref=self._categories_ref, cat_count=self._categories_len,
+                cat_pt_xml=self._cat_pt_xml, nsdecls=''
+            )
+        else:
+            return ''
 
     @property
     def val(self):
@@ -573,7 +584,7 @@ class _SeriesDataMoreDetails(_SeriesData):
         The letter of the Excel worksheet column in which the data for this
         series appears.
         """
-        return xl_col_to_name(len(self._categories) + self._series_idx)
+        return xl_col_to_name(max(1, len(self._categories)) + self._series_idx)
 
     @property
     def _val_pt_xml(self):

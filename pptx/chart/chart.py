@@ -154,8 +154,13 @@ class Chart(object):
         in the xml of this chart
         """
         chart_data = ChartDataMoreDetails()
-        chart_data.categories = self.series[0].categories_tuples
-        chart_data.categories_len = self.series[0].categories_len
+        if len(self.series) > 0:
+            categories = self.series[0].categories_tuples
+        else:
+            categories = None
+        if not categories is None:
+            chart_data.categories = categories
+            chart_data.categories_len = self.series[0].categories_len
         for item_series in self.series:
             chart_data.add_series(
                 item_series.name,
@@ -313,7 +318,8 @@ class _SeriesRewriter(object):
         ser._remove_cat()
         ser._remove_val()
         ser._insert_tx(series_data.tx)
-        ser._insert_cat(series_data.cat)
+        if not series_data.cat is None:
+            ser._insert_cat(series_data.cat)
         ser._insert_val(series_data.val)
 
     @classmethod

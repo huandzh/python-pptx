@@ -57,14 +57,16 @@ class _BaseSeries(object):
         Tuples containing the category indexes and strings for this series.
         If len > 1, the series has multilvl categories.
         """
-        return self._element.cat.tuples_pts
+        if not self._element.cat is None:
+            return self._element.cat.tuples_pts
 
     @property
     def categories_len(self):
         """
         Return length of categories, equal to ticks in categories axis
         """
-        return self._element.cat.val_ptCount
+        if not self._element.cat is None:
+            return self._element.cat.val_ptCount
 
     @property
     def values_tuple(self):
