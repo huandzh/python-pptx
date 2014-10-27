@@ -63,6 +63,10 @@ class WorkbookWriter(object):
             if len(item_series.values) != 0 and isinstance(
                 item_series.values[0], tuple):
                 for idx, token in item_series.values:
+                    #TODO : dirty hack here, check xlsxwriter
+                    if type(token) != float and token.upper() in ['#N/A',
+                            '#DIV/0!', '#NAME?', '#VALUE!']:
+                        token = '=' + token.upper()
                     worksheet.write(1+idx, series_col, token)
             else:
                 worksheet.write_column(1, series_col, item_series.values)
