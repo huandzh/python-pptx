@@ -10,7 +10,7 @@ from ..oxml import parse_xml
 from ..oxml.ns import nsdecls
 from .xlsx import WorkbookWriter
 from .xmlwriter import ChartXmlWriter
-
+from xml.sax.saxutils import escape
 
 class ChartData(object):
     """
@@ -144,7 +144,7 @@ class _SeriesData(object):
         series name.
         """
         xml = self._tx_tmpl.format(
-            wksht_ref=self._series_name_ref, series_name=self.name,
+            wksht_ref=self._series_name_ref, series_name=escape(self.name),
             nsdecls=' %s' % nsdecls('c')
         )
         return parse_xml(xml)
@@ -156,7 +156,7 @@ class _SeriesData(object):
         element contains the series name.
         """
         return self._tx_tmpl.format(
-            wksht_ref=self._series_name_ref, series_name=self.name,
+            wksht_ref=self._series_name_ref, series_name=escape(self.name),
             nsdecls=''
         )
 
