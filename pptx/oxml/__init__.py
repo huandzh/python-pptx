@@ -69,7 +69,7 @@ register_element_cls('c:style',        CT_Style)
 from .chart.plot import (
     CT_Area3DChart, CT_AreaChart, CT_BarChart, CT_BarDir, CT_DLblPos,
     CT_DLbls, CT_GapAmount, CT_Grouping, CT_LineChart, CT_Overlap,
-    CT_PieChart
+    CT_PieChart, CT_Pie3DChart,
 )
 register_element_cls('c:area3DChart', CT_Area3DChart)
 register_element_cls('c:areaChart',   CT_AreaChart)
@@ -82,6 +82,7 @@ register_element_cls('c:grouping',    CT_Grouping)
 register_element_cls('c:lineChart',   CT_LineChart)
 register_element_cls('c:overlap',     CT_Overlap)
 register_element_cls('c:pieChart',    CT_PieChart)
+register_element_cls('c:pie3DChart',    CT_Pie3DChart)
 
 
 from .chart.series import (
