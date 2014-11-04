@@ -213,7 +213,7 @@ class _SeriesData(object):
                 '                <c:pt idx="%d">\n'
                 '                  <c:v>%s</c:v>\n'
                 '                </c:pt>\n'
-            ) % (idx, name)
+            ) % (idx, escape(name))
         return xml
 
     @property
