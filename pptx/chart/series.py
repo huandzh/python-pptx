@@ -210,6 +210,6 @@ def _SeriesFactory(ser):
         return BarSeries(ser)
     if xChart_tag == qn('c:lineChart'):
         return LineSeries(ser)
-    if xChart_tag == qn('c:pieChart'):
+    if xChart_tag == qn('c:pieChart') or xChart_tag == qn('c:pie3DChart'):
         return PieSeries(ser)
     raise ValueError('unsupported series type %s' % xChart_tag)
