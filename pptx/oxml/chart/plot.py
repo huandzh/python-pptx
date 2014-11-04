@@ -236,3 +236,16 @@ class CT_PieChart(BaseChartElement):
     ser = ZeroOrMore('c:ser', successors=_tag_seq[2:])
     dLbls = ZeroOrOne('c:dLbls', successors=_tag_seq[3:])
     del _tag_seq
+
+
+class CT_Pie3DChart(BaseChartElement):
+    """
+    ``<c:pieChart>`` custom element class
+    """
+    _tag_seq = (
+        'c:varyColors', 'c:ser', 'c:dLbls', 'c:extLst'
+    )
+    ser = ZeroOrMore('c:ser', successors=_tag_seq[2:])
+    dLbls = ZeroOrOne('c:dLbls', successors=_tag_seq[3:])
+    del _tag_seq
+
