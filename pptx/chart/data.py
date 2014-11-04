@@ -213,7 +213,8 @@ class _SeriesData(object):
                 '                <c:pt idx="%d">\n'
                 '                  <c:v>%s</c:v>\n'
                 '                </c:pt>\n'
-            ) % (idx, escape(name))
+            ) % (idx, (escape(name) if
+                       isinstance(name,(str, unicode)) else name))
         return xml
 
     @property
@@ -558,7 +559,8 @@ class _SeriesDataMoreDetails(_SeriesData):
             for idx, name in lvl:
                 #ignore idx out bound
                 if idx < self.categories_len:
-                    xml += pt_xml % (idx, escape(name))
+                    xml += pt_xml % (idx, (escape(name) if
+                                     isinstance(name,(str, unicode)) else name))
             xml += lvl_end_tag
         return xml
 
