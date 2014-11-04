@@ -213,7 +213,7 @@ class _SeriesData(object):
                 '                <c:pt idx="%d">\n'
                 '                  <c:v>%s</c:v>\n'
                 '                </c:pt>\n'
-            ) % (idx, escape(name))
+            ) % (idx, escape(name) if isinstance(name,(str, unicode)) else name)
         return xml
 
     @property
