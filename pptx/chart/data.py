@@ -551,8 +551,8 @@ class _SeriesDataMoreDetails(_SeriesData):
              '                    <c:v>%s</c:v>\n',
              '                  </c:pt>\n',))
         #ref lvl is in reverse sequence in xml
-        loop_range = range(len(self._categories))
-        loop_range.reverse()
+        loop_range = xrange(len(self._categories))
+        #loop_range.reverse()
         for ilvl in loop_range:
             lvl = self._categories[ilvl]
             xml += lvl_start_tag
