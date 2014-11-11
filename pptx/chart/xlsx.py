@@ -52,7 +52,7 @@ class WorkbookWriter(object):
         if len(categories) != 0 and isinstance(categories[0], (list, tuple)):
             for ilvl in xrange(len(categories)):
                 for idx, token in categories[ilvl]:
-                    worksheet.write(1+idx, ilvl, token)
+                    worksheet.write(1+idx, len(categories) - ilvl - 1, token)
             value_start_col = len(categories)
         else:
             worksheet.write_column(1, 0, categories)
