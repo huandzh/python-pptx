@@ -82,8 +82,6 @@ rst_epilog = """
 
 .. |BaseFileSystem| replace:: :class:`BaseFileSystem`
 
-.. |BaseLength| replace:: :class:`.BaseLength`
-
 .. |BaseShape| replace:: :class:`BaseShape`
 
 .. |_Cell| replace:: :class:`_Cell`
@@ -128,13 +126,15 @@ rst_epilog = """
 
 .. |_Hyperlink| replace:: :class:`_Hyperlink`
 
+.. |ImagePart| replace:: :class:`.ImagePart`
+
+.. |Inches| replace:: :class:`.Inches`
+
 .. |int| replace:: :class:`int`
 
 .. |InvalidXmlError| replace:: :exc:`InvalidXmlError`
 
 .. |KeyError| replace:: :exc:`KeyError`
-
-.. |list| replace:: :class:`list`
 
 .. |_LayoutPlaceholders| replace:: :class:`_LayoutPlaceholders`
 
@@ -142,9 +142,13 @@ rst_epilog = """
 
 .. |Legend| replace:: :class:`.Legend`
 
+.. |Length| replace:: :class:`.Length`
+
 .. |LineFormat| replace:: :class:`.LineFormat`
 
 .. |LineSeries| replace:: :class:`.LineSeries`
+
+.. |list| replace:: :class:`list`
 
 .. |_MasterPlaceholders| replace:: :class:`_MasterPlaceholders`
 
@@ -175,6 +179,8 @@ rst_epilog = """
 .. |pp| replace:: ``python-pptx``
 
 .. |Presentation| replace:: :class:`~pptx.Presentation`
+
+.. |Pt| replace:: :class:`.Pt`
 
 .. |_Relationship| replace:: :class:`._Relationship`
 

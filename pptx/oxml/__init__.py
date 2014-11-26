@@ -54,16 +54,18 @@ register_element_cls('c:valAx',         CT_ValAx)
 
 
 from .chart.chart import (
-    CT_Chart, CT_ChartSpace, CT_ExternalData, CT_Legend, CT_LegendPos,
-    CT_PlotArea, CT_Style
+    CT_Chart, CT_ChartSpace, CT_ExternalData, CT_PlotArea, CT_Style
 )
 register_element_cls('c:chart',        CT_Chart)
 register_element_cls('c:chartSpace',   CT_ChartSpace)
 register_element_cls('c:externalData', CT_ExternalData)
-register_element_cls('c:legend',       CT_Legend)
-register_element_cls('c:legendPos',    CT_LegendPos)
 register_element_cls('c:plotArea',     CT_PlotArea)
 register_element_cls('c:style',        CT_Style)
+
+
+from .chart.legend import CT_Legend, CT_LegendPos
+register_element_cls('c:legend',    CT_Legend)
+register_element_cls('c:legendPos', CT_LegendPos)
 
 
 from .chart.plot import (
@@ -260,19 +262,26 @@ register_element_cls('a:tr',      CT_TableRow)
 from .text import (
     CT_Hyperlink, CT_RegularTextRun, CT_TextBody, CT_TextBodyProperties,
     CT_TextCharacterProperties, CT_TextField, CT_TextFont, CT_TextLineBreak,
-    CT_TextParagraph, CT_TextParagraphProperties
+    CT_TextNormalAutofit, CT_TextParagraph, CT_TextParagraphProperties,
+    CT_TextSpacing, CT_TextSpacingPercent, CT_TextSpacingPoint
 )
-register_element_cls('a:bodyPr',     CT_TextBodyProperties)
-register_element_cls('a:br',         CT_TextLineBreak)
-register_element_cls('a:defRPr',     CT_TextCharacterProperties)
-register_element_cls('a:endParaRPr', CT_TextCharacterProperties)
-register_element_cls('a:fld',        CT_TextField)
-register_element_cls('a:hlinkClick', CT_Hyperlink)
-register_element_cls('a:latin',      CT_TextFont)
-register_element_cls('a:r',          CT_RegularTextRun)
-register_element_cls('a:p',          CT_TextParagraph)
-register_element_cls('a:pPr',        CT_TextParagraphProperties)
-register_element_cls('a:rPr',        CT_TextCharacterProperties)
-register_element_cls('a:txBody',     CT_TextBody)
-register_element_cls('c:txPr',       CT_TextBody)
-register_element_cls('p:txBody',     CT_TextBody)
+register_element_cls('a:bodyPr',      CT_TextBodyProperties)
+register_element_cls('a:br',          CT_TextLineBreak)
+register_element_cls('a:defRPr',      CT_TextCharacterProperties)
+register_element_cls('a:endParaRPr',  CT_TextCharacterProperties)
+register_element_cls('a:fld',         CT_TextField)
+register_element_cls('a:hlinkClick',  CT_Hyperlink)
+register_element_cls('a:latin',       CT_TextFont)
+register_element_cls('a:lnSpc',       CT_TextSpacing)
+register_element_cls('a:normAutofit', CT_TextNormalAutofit)
+register_element_cls('a:r',           CT_RegularTextRun)
+register_element_cls('a:p',           CT_TextParagraph)
+register_element_cls('a:pPr',         CT_TextParagraphProperties)
+register_element_cls('a:rPr',         CT_TextCharacterProperties)
+register_element_cls('a:spcAft',      CT_TextSpacing)
+register_element_cls('a:spcBef',      CT_TextSpacing)
+register_element_cls('a:spcPct',      CT_TextSpacingPercent)
+register_element_cls('a:spcPts',      CT_TextSpacingPoint)
+register_element_cls('a:txBody',      CT_TextBody)
+register_element_cls('c:txPr',        CT_TextBody)
+register_element_cls('p:txBody',      CT_TextBody)

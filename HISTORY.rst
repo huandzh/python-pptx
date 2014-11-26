@@ -3,6 +3,27 @@
 Release History
 ---------------
 
+0.5.5 (2014-11-17)
+++++++++++++++++++
+
+- feature #51 - add Python 3 support
+
+
+0.5.4 (2014-11-15)
+++++++++++++++++++
+
+- feature #43 - image native size in shapes.add_picture() is now calculated
+  based on DPI attribute in image file, if present, defaulting to 72 dpi.
+- feature #113 - Add Paragraph.space_before, Paragraph.space_after, and
+  Paragraph.line_spacing
+
+
+0.5.3 (2014-11-09)
+++++++++++++++++++
+
+- add experimental feature TextFrame.fit_text()
+
+
 0.5.2 (2014-10-26)
 ++++++++++++++++++
 

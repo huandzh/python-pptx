@@ -25,9 +25,9 @@ LICENSE = open(license).read()
 PACKAGES = find_packages(exclude=['tests', 'tests.*'])
 PACKAGE_DATA = {'pptx': ['templates/*']}
 
-INSTALL_REQUIRES = ['lxml>=2.3.2', 'Pillow>=2.0', 'XlsxWriter>=0.5.7']
+INSTALL_REQUIRES = ['lxml>=3.1.0', 'Pillow>=2.6.1', 'XlsxWriter>=0.5.7']
 TEST_SUITE = 'tests'
-TESTS_REQUIRE = ['behave', 'mock', 'pyparsing>=2.0.1', 'pytest', 'unittest2']
+TESTS_REQUIRE = ['behave', 'mock', 'pyparsing>=2.0.1', 'pytest']
 
 CLASSIFIERS = [
     'Development Status :: 4 - Beta',
@@ -39,6 +39,9 @@ CLASSIFIERS = [
     'Programming Language :: Python :: 2',
     'Programming Language :: Python :: 2.6',
     'Programming Language :: Python :: 2.7',
+    'Programming Language :: Python :: 3',
+    'Programming Language :: Python :: 3.3',
+    'Programming Language :: Python :: 3.4',
     'Topic :: Office/Business :: Office Suites',
     'Topic :: Software Development :: Libraries'
 ]
