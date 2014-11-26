@@ -12,7 +12,7 @@ from .oxml import parse_xml
 from .packuri import PACKAGE_URI, PackURI
 from .phys_pkg import PhysPkgReader
 from .shared import CaseInsensitiveDict
-
+import warnings
 
 class PackageReader(object):
     """
@@ -98,7 +98,12 @@ class PackageReader(object):
                 continue
             visited_partnames.append(partname)
             part_srels = PackageReader._srels_for(phys_reader, partname)
-            blob = phys_reader.blob_for(partname)
+            try:
+                blob = phys_reader.blob_for(partname)
+            except KeyError: # if not find
+                srels._srels.remove(srel)
+                warnings.warn('Remove invalid srel %s' % partname)
+                continue
             yield (partname, blob, part_srels)
             for partname, blob, srels in PackageReader._walk_phys_parts(
                     phys_reader, part_srels, visited_partnames):
