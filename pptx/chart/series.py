@@ -51,6 +51,44 @@ class _BaseSeries(object):
         value_pt_elms = ser.val_pts
         return tuple(pt.value for pt in value_pt_elms)
 
+    @property
+    def categories_tuples(self):
+        """
+        Tuples containing the category indexes and strings for this series.
+        If len > 1, the series has multilvl categories.
+        """
+        if not self._element.cat is None:
+            return self._element.cat.tuples_pts
+
+    @property
+    def categories_len(self):
+        """
+        Return length of categories, equal to ticks in categories axis
+        """
+        if not self._element.cat is None:
+            return self._element.cat.val_ptCount
+
+    @property
+    def values_tuple(self):
+        """
+        Tuple containing the value indexes and value for this series.
+        """
+        return self._element.val.tuples_pts
+
+    @property
+    def values_len(self):
+        """
+        Return length of values, equal to ticks in categories axis
+        """
+        return self._element.val.val_ptCount
+
+    @property
+    def format_code(self):
+        """
+        Return formatCode
+        """
+        return self._element.val.ref.cache.text_fomatCode
+
 
 class BarSeries(_BaseSeries):
     """

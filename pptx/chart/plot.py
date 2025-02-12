@@ -38,6 +38,21 @@ class Plot(object):
         return tuple(pt.v.text for pt in category_pt_elms)
 
     @property
+    def categories_tuples(self):
+        """
+        Tuples containing the category indexes and strings for this plot.
+        If len > 1, the plot has multilvl categories.
+        """
+        return self._element.iter_sers().next().cat.tuples_pts
+
+    @property
+    def categories_len(self):
+        """
+        Return length of categories, equal to ticks in categories axis
+        """
+        return self._element.iter_sers().next().cat.val_ptCount
+
+    @property
     def chart(self):
         """
         The |Chart| object containing this plot.

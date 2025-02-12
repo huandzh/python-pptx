@@ -46,11 +46,23 @@ class WorkbookWriter(object):
         """
         Write *categories* and *series* to *worksheet* in the standard
         layout, categories in first column starting in second row, and series
-        as columns starting in second column, series title in first cell.
-        Make the whole range an Excel List.
+        as columns starting in column next to categories, series title in first
+        cell. Make the whole range an Excel List.
         """
-        worksheet.write_column(1, 0, categories)
-        for series in series:
-            series_col = series.index + 1
-            worksheet.write(0, series_col, series.name)
-            worksheet.write_column(1, series_col, series.values)
+        if len(categories) != 0 and isinstance(categories[0], (list, tuple)):
+            for ilvl in xrange(len(categories)):
+                for idx, token in categories[ilvl]:
+                    worksheet.write(1+idx, ilvl, token)
+            value_start_col = len(categories)
+        else:
+            worksheet.write_column(1, 0, categories)
+            value_start_col = 1
+        for item_series in series:
+            series_col = item_series.index + value_start_col
+            worksheet.write(0, series_col, item_series.name)
+            if len(item_series.values) != 0 and isinstance(
+                item_series.values[0], tuple):
+                for idx, token in item_series.values:
+                    worksheet.write(1+idx, series_col, token)
+            else:
+                worksheet.write_column(1, series_col, item_series.values)

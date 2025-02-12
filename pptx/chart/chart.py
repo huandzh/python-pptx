@@ -14,6 +14,7 @@ from ..enum.chart import XL_LEGEND_POSITION
 from .plot import PlotFactory, PlotTypeInspector
 from .series import SeriesCollection
 from ..util import lazyproperty
+from .data import ChartDataMoreDetails
 
 
 class Chart(object):
@@ -147,6 +148,28 @@ class Chart(object):
         """
         return self._chart_part.chart_workbook
 
+    def get_data_more_details(self):
+        """
+        return |ChartDataMoreDetails| object contains categories and series 
+        in the xml of this chart
+        """
+        chart_data = ChartDataMoreDetails()
+        if len(self.series) > 0:
+            categories = self.series[0].categories_tuples
+        else:
+            categories = None
+        if not categories is None:
+            chart_data.categories = categories
+            chart_data.categories_len = self.series[0].categories_len
+        for item_series in self.series:
+            chart_data.add_series(
+                item_series.name,
+                item_series.values_tuple,
+                values_len=item_series.values_len,
+                format_code=item_series.format_code,
+                )
+        return chart_data
+
 
 class Legend(object):
     """
@@ -277,6 +300,7 @@ class _SeriesRewriter(object):
         increasing order of the c:ser/c:idx value, starting with 0 and with
         any gaps in numbering collapsed.
         """
+        chartSpace.reindex_sers()
         ser_count_diff = new_ser_count - len(chartSpace.sers)
         if ser_count_diff > 0:
             cls._add_cloned_sers(chartSpace, ser_count_diff)
@@ -294,7 +318,8 @@ class _SeriesRewriter(object):
         ser._remove_cat()
         ser._remove_val()
         ser._insert_tx(series_data.tx)
-        ser._insert_cat(series_data.cat)
+        if not series_data.cat is None:
+            ser._insert_cat(series_data.cat)
         ser._insert_val(series_data.val)
 
     @classmethod

@@ -84,9 +84,24 @@ register_element_cls('c:overlap',     CT_Overlap)
 register_element_cls('c:pieChart',    CT_PieChart)
 
 
-from .chart.series import CT_SeriesComposite, CT_StrVal_NumVal_Composite
+from .chart.series import (
+    CT_SeriesComposite, CT_StrVal_NumVal_Composite,
+    CT_Val, CT_Cat,
+    CT_MultiLvlStrRef, CT_StrRef, CT_NumRef,
+    CT_MultiLvlStrCache, CT_Lvl, CT_StrCache, CT_NumCache
+)
 register_element_cls('c:pt',  CT_StrVal_NumVal_Composite)
 register_element_cls('c:ser', CT_SeriesComposite)
+register_element_cls('c:val', CT_Val)
+register_element_cls('c:cat', CT_Cat)
+register_element_cls('c:multiLvlStrRef', CT_MultiLvlStrRef)
+register_element_cls('c:strRef', CT_StrRef)
+register_element_cls('c:numRef', CT_NumRef)
+register_element_cls('c:multiLvlStrCache', CT_MultiLvlStrCache)
+register_element_cls('c:lvl', CT_Lvl)
+register_element_cls('c:strCache', CT_StrCache)
+register_element_cls('c:numCache', CT_NumCache)
+
 
 
 from .chart.shared import (
@@ -108,7 +123,7 @@ register_element_cls('c:smooth',           CT_Boolean)
 register_element_cls('c:varyColors',       CT_Boolean)
 register_element_cls('c:x',                CT_Double)
 register_element_cls('c:xMode',            CT_LayoutMode)
-
+register_element_cls('c:ptCount',          CT_UnsignedInt)
 
 from .dml.color import (
     CT_HslColor, CT_Percentage, CT_PresetColor, CT_SchemeColor,
