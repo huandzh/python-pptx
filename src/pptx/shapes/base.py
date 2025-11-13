@@ -214,10 +214,6 @@ class BaseShape(object):
     def width(self, value: Length):
         self._element.cx = value
 
-    @width.setter
-    def width(self, value):
-        self._element.cx = value
-
     @property
     def alt_text(self):
         """
