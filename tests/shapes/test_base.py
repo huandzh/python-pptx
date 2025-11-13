@@ -66,6 +66,11 @@ class DescribeBaseShape(object):
         shape.alt_text = new_value
         assert shape._element.xml == expected_xml
 
+    def it_can_delete_its_alt_text(self, alt_text_del_fixture):
+        shape, expected_xml = alt_text_del_fixture
+        del shape.alt_text
+        assert shape._element.xml == expected_xml
+
     def it_has_a_position(self, position_get_fixture):
         shape, expected_left, expected_top = position_get_fixture
         assert shape.left == expected_left
@@ -313,6 +318,41 @@ class DescribeBaseShape(object):
         shape = ShapeCls(element(xSp_cxml), None)
         expected_xml = xml(expected_xSp_cxml)
         return shape, new_value, expected_xml
+
+    @pytest.fixture(
+        params=[
+            (
+                "p:sp/p:nvSpPr/p:cNvPr{id=1,descr=foo}",
+                Shape,
+                "p:sp/p:nvSpPr/p:cNvPr{id=1}",
+            ),
+            (
+                "p:grpSp/p:nvGrpSpPr/p:cNvPr{id=2,descr=bar}",
+                BaseShape,
+                "p:grpSp/p:nvGrpSpPr/p:cNvPr{id=2}",
+            ),
+            (
+                "p:graphicFrame/p:nvGraphicFramePr/p:cNvPr{id=3,descr=baz}",
+                GraphicFrame,
+                "p:graphicFrame/p:nvGraphicFramePr/p:cNvPr{id=3}",
+            ),
+            (
+                "p:cxnSp/p:nvCxnSpPr/p:cNvPr{id=4,descr=boo}",
+                BaseShape,
+                "p:cxnSp/p:nvCxnSpPr/p:cNvPr{id=4}",
+            ),
+            (
+                "p:pic/p:nvPicPr/p:cNvPr{id=5,descr=far}",
+                Picture,
+                "p:pic/p:nvPicPr/p:cNvPr{id=5}",
+            ),
+        ]
+    )
+    def alt_text_del_fixture(self, request):
+        xSp_cxml, ShapeCls, expected_xSp_cxml = request.param
+        shape = ShapeCls(element(xSp_cxml), None)
+        expected_xml = xml(expected_xSp_cxml)
+        return shape, expected_xml
 
     @pytest.fixture
     def part_fixture(self, shapes_):
